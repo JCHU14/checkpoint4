@@ -9,8 +9,9 @@ export class Weather {
 
 
     get WeatherTemplate() {
+        // FIXME tempChangeCelsius should flip the boolean on the weather object in your appstate
         return `
-        <p onclick="app.WeatherController.tempChangeCelcius()" class="mdi mdi-sun-snowflake-variant fs-3 "> ${this.name}  temp: ${this.main.feels_like}</p>`
+        <p onclick="app.WeatherController.tempChangeCelcius()" class="mdi mdi-sun-snowflake-variant fs-3 "> ${this.name}  temp: ${this.main.temp}</p>`
     }
 }
 

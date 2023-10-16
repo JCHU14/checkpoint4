@@ -1,6 +1,6 @@
 export class Image {
     constructor(data) {
-        this.imgUrl = data.url
+        this.largeImageUrl = data.largeImgUrl
         this.author = data.author
 
     }

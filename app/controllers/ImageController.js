@@ -8,7 +8,7 @@ import { setHTML } from "../utils/Writer.js"
 
 function _drawImage() {
     const backgroundPicture = AppState.randomPicture
-    document.body.style.backgroundImage = `url(${backgroundPicture?.imgUrl})`
+    document.body.style.backgroundImage = `url(${backgroundPicture?.largeImageUrl})`
     console.log('draw controller', backgroundPicture)
     setHTML('picture description', backgroundPicture?.BaseTemplate)
 }
@@ -16,7 +16,6 @@ function _drawImage() {
 
 function _drawTime() {
     const times = new Date().toLocaleTimeString()
-    console.log(times)
 
 
     setHTML('time', times)

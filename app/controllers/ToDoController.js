@@ -14,17 +14,15 @@ function _drawTodos() {
     let content = ''
     todos.forEach(todo => content += todo.TodoTemplate)
     setHTML('todoTemp', content)
-    setHTML('amount', `Notes: ${todos.length}`)
+
+
+
+    const completedTodos = todos.filter(todo => todo.completed == false)
+    setHTML('completed', `Notes: ${completedTodos.length}`)
 }
 
-function _drawChecked() {
-    console.log('checking todo')
-    const todos = AppState.todos
-    let content = ''
-    todos.find(todo => content += todo.CheckedTemplate)
-    setHTML('todoTemp', content)
-    setHTML('amount', `Notes: ${todos.length - 1}`)
-}
+
+
 
 
 
@@ -32,7 +30,7 @@ export class ToDoController {
     constructor() {
         console.log('todo controller loaded')
         AppState.on("todos", _drawTodos)
-        AppState.on('account', _drawTodos)
+        AppState.on('account', this.GetTodos)
     }
 
 
@@ -77,20 +75,24 @@ export class ToDoController {
     }
 
 
-
-
-
-    async checkTodo() {
+    async GetTodos() {
         try {
-            const wantsToConfirm = await Pop.confirm('Are you sure you want to check?')
-            if (!wantsToConfirm) {
-                return
+            await todoService.getTodo()
 
-            }
+        } catch (error) {
+            Pop.error(error)
+            console.error(error);
 
-            _drawChecked()
+        }
+    }
 
 
+
+    async checkTodo(todoId) {
+        try {
+
+            // FIXME send your todoId down to the service for your put request
+            await todoService.updateTodo(todoId)
 
         } catch (error) {
             Pop.error(error)

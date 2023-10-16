@@ -33,7 +33,24 @@ class TodoService {
         AppState.emit('todos')
     }
 
+    async updateTodo(todoId) {
+        const todoIndex = AppState.todos.findIndex(todo => todo.id == todoId)
+        const foundTodo = AppState.todos[todoIndex]
 
+        const todoData = {
+            completed: !foundTodo.completed
+        }
+
+        const res = await api.put(`api/todos/${todoId}`, todoData)
+        console.log('updated todo', res.data);
+        const newTodo = new ToDo(res.data)
+
+        AppState.todos.splice(todoIndex, 1, newTodo)
+        AppState.emit('todos')
+
+
+
+    }
 }
 
 
